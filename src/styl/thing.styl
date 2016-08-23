@@ -1,0 +1,41 @@
+.split
+    .left, .right
+        width: 48%
+        float: left
+
+    .spacer
+        width: 4%
+        float: left
+
+.break
+    clear: both
+
+div.check
+    margin-top: 10px
+
+    input
+        margin-left: 6px
+        transform: scale(2)
+
+    label
+        margin-left: 10px
+        font: 20px/30px $qz-serif
+        -webkit-font-smoothing: antialiased
+
+qz-button-group()
+
+button.score
+    margin-top: 20px
+
+@media only screen and (max-width 600px)
+    .split
+        .left, .right
+            width: 100%
+            float: none
+
+        .spacer
+            display: none
+
+    div.check
+        label
+            font: 17px/27px $qz-serif;

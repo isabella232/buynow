@@ -1,0 +1,40 @@
+h2= hed
+
+for graf in intro
+	p!= graf.value
+
+div.split
+	div.left
+		img(src="assets/Buy+Now.jpg")
+
+	div.spacer &nbsp;
+
+	div.right
+		h2= question
+		
+		for right in rights
+			div.check(id=right.slug)
+				input(type="checkbox")
+				label(id=right.slug)= right.text
+				
+		button.active.score(type="button") Check my answers
+		
+		p.response
+		
+
+div.break &nbsp;
+
+for graf in study
+	p!= graf.value
+	
+div.explainer
+
+h2= body1_hed
+
+for graf in body1
+	p!= graf.value
+
+h2= body2_hed
+
+for graf in body2
+	p!= graf.value
