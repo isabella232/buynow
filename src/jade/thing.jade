@@ -10,10 +10,19 @@ div.split
 	div.right
 		h2= question
 		
-		for right in rights
-			div.check(id=right.slug)
-				input(type="checkbox")
-				label(id=right.slug)= right.text
+		table.rights
+			tr
+				th.yes Yes
+				th.no No
+				th.label
+					
+			for right in rights
+				tr(id=right.slug)
+					td(class="check yes ")
+						input(type="checkbox")
+					td(class="check no ")
+						input(type="checkbox")
+					td(class="label")= right.text
 				
 		button.active.score(type="button") Check my answers
 		
@@ -24,8 +33,29 @@ div.break &nbsp;
 
 for graf in study
 	p!= graf.value
-	
-div.explainer
+
+div.your_results
+	h2= results_hed
+		
+	table.results
+		tr
+			th.yes Yes
+			th.no No
+			th.label Right
+			th.response Survey respondents who said Yes
+				
+		for right in rights
+			tr(id=right.slug)
+				td(class="check yes")
+					input(type="checkbox", disabled="disabled")
+				td(class="check no")
+					input(type="checkbox", disabled="disabled")
+				td(class="label")= right.right
+				td(class="response")
+					div.fill
+					div.pct
+		
+	div.explainer
 
 h2= body1_hed
 

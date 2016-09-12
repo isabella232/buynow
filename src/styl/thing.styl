@@ -10,22 +10,80 @@
 .break
     clear: both
 
-div.check
-    margin-top: 10px
+table.rights
+    font: 20px/30px $qz-serif
+    -webkit-font-smoothing: antialiased
 
-    input
-        margin-left: 6px
-        transform: scale(2)
+    th
+        border-bottom: 1px solid $qz-gray-1
 
-    label
-        margin-left: 10px
-        font: 20px/30px $qz-serif
-        -webkit-font-smoothing: antialiased
+    th.label
+        text-align: left
+        padding-left: 10px
+
+    td.check
+        padding: 5px 15px
+
+        input
+            transform: scale(2)
+
+            &:focus
+                outline: 0
+
+    th.no, td.no
+        border-left: 1px solid $qz-gray-1
+
+    td.label
+            padding-left: 10px
 
 qz-button-group()
 
 button.score
     margin-top: 20px
+
+p.response
+    font-weight: bold;
+
+.your_results
+    display: none
+    
+    .results
+        font: 20px/30px $qz-serif
+        -webkit-font-smoothing: antialiased
+
+        th
+            border-bottom: 1px solid $qz-gray-1
+
+        th.label, th.response
+            text-align: left
+            padding-left: 10px
+
+        td.check
+            padding: 5px 15px
+
+            input
+                transform: scale(2)
+
+                &:focus
+                    outline: 0
+
+        th.no, td.no
+            border-left: 1px solid $qz-gray-1
+
+        td.label
+                padding-left: 10px
+
+        td.response
+            padding-left: 10px
+
+            div.fill
+                background-color: $qz-purp-1;
+                height: 30px
+                float: left
+
+            div.pct
+                margin-left: 3px
+                float: left
 
 @media only screen and (max-width 600px)
     .split

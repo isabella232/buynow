@@ -43,39 +43,80 @@ var rights = [{
 	},
 ];
 
-function init () {
-	$('div.explainer').html(NO_RIGHTS + NO_OWN);
+var $explainer = null;
+var $rights = null;
 
+function init () {
+	$explainer = $('div.explainer');
+	$rights = $('.rights');
+
+	$explainer.html(NO_RIGHTS + NO_OWN);
+
+	$('.rights input[type="checkbox"]').on('click', onCheckClick);
 	$('button.score').on('click', onScoreButtonClick);
 }
 
-function onScoreButtonClick() {
-	$('p.response').text('Thanks! Keep reading to find out how you did.');
+function onCheckClick() {
+	var $this = $(this);
+	var slug = $this.parent().parent().attr('id');
 
-	var count = $('div.check input:checked').length;
+	if ($this.parent().hasClass('yes')) {
+		var $other = $('.rights #' + slug + ' .no input');
+	} else {
+		var $other = $('.rights #' + slug + ' .yes input');
+	}
+
+	$other.attr('checked', false);
+}
+
+function onScoreButtonClick() {
+	if ($('.check input:checked').length < rights.length) {
+		$('p.response').text('Please check Yes or No for each right.');
+		return;
+	}
+
+	$('button.score').hide();
+	$('p.response').text('Thanks! Keep reading to learn how you did.');
+	$('.rights input').attr('disabled', 'disabled');
+
+	var count = $('.yes input:checked').length;
+	var ownChecked = $('.rights #own .yes input').is(':checked');
+
+	_.each(rights, function(right) {
+		$('.results #' + right.slug + ' .response .fill').width(right.study_pct + '%');
+		$('.results #' + right.slug + ' .response .pct').text(right.study_pct + '%');
+
+		if ($('.rights #' + right.slug + ' .yes input').is(':checked')) {
+			$('.results #' + right.slug + ' .yes input').attr('checked', true);
+		} else {
+			$('.results #' + right.slug + ' .no input').attr('checked', true);
+		}
+	});
 
 	if (count == 0) {
-		$('div.explainer').html(NO_RIGHTS + NO_OWN);
+		$explainer.html(NO_RIGHTS + NO_OWN);
 	} else if (count == 1) {
-		if ($('div.check#own input:checked')) {
-			$('div.explainer').html(NO_RIGHTS + YES_OWN);
+		if (ownChecked) {
+			$explainer.html(NO_RIGHTS + YES_OWN);
 		} else {
-			var el = $('div.check input:checked').first();
-			var slug = el.parent().attr('id');
+			var el = $('.rights .yes input:checked').first();
+			var slug = el.parent().parent().attr('id');
 			var example_right = _.find(rights, { 'slug': slug })
-			$('div.explainer').html(EXAMPLE_RIGHT(example_right) + NO_OWN);
+			$explainer.html(EXAMPLE_RIGHT(example_right) + NO_OWN);
 		}
 	} else {
-		var el = $('div.check input:checked').first();
-		var slug = el.parent().attr('id');
+		var el = $('.rights .yes input:checked').first();
+		var slug = el.parent().parent().attr('id');
 		var example_right = _.find(rights, { 'slug': slug })
 
-		if ($('div.check#own input:checked')) {
-			$('div.explainer').html(EXAMPLE_RIGHT(example_right) + YES_OWN);
+		if (ownChecked) {
+			$explainer.html(EXAMPLE_RIGHT(example_right) + YES_OWN);
 		} else {
-			$('div.explainer').html(EXAMPLE_RIGHT(example_right) + NO_OWN);
+			$explainer.html(EXAMPLE_RIGHT(example_right) + NO_OWN);
 		}
 	}
+
+	$('.your_results').show();
 }
 
 function setup () {
