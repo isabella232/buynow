@@ -3,17 +3,12 @@ var throttle = require('./throttle');
 var features = require('./detectFeatures')();
 var _ = require('lodash');
 
-'Those '
-
-var NO_RIGHTS = "<p>You selected no rights, which is correct. The terms of service agreements (TOS) that govern digital media almost never convey any of the rights listed above.</p>
-<p>In Perzanowski and Hoofnagle's study shoppers consistently, and dramatically, overestimated what rights they acquired to digital content they purchased online. The vast majority believed that they would be able to keep their ebook indefinantely and transfer it to any device they own. More than a third believed they would be able to lend it or gift it to a friend.</p>";
-var EXAMPLE_RIGHT = _.template("<p>Like the vast majority of shoppers in the original survey, you believe that buying an ebook guarantees you at least some rights. For example, you said that you would be able to <%= desc %>. In reality, the terms of service agreements (TOS) that govern digital media almost never convey any of the rights listed above.</p>
-<p>In Perzanowski and Hoofnagle's study shoppers consistently, and dramatically, overestimated what rights they acquired to digital content they purchased online. The vast majority of participants believed that they would be able to keep their ebook indefinantely and transfer it to any device they own. More than a third believed they would be able to lend it or gift it to a friend.</p>");
-var ALL_RIGHTS = "<p>You selected every right, which is to say that you believe you have similar rights to an ebook that you would have to a physical copy. In reality, the terms of service agreements (TOS) that govern digital media almost never convey any of the rights listed above.</p>
-<p>In Perzanowski and Hoofnagle's study shoppers consistently, and dramatically, overestimated what rights they acquired to digital content they purchased online. The vast majority of participants believed that they would be able to keep their ebook indefinantely and transfer it to any device they own. More than a third believed they would be able to lend it or gift it to a friend.</p>";
+var NO_RIGHTS = "<p>You selected no rights, which is correct. The terms of service agreements (TOS) that govern digital media almost never convey any of the rights listed above.</p><p>In Perzanowski and Hoofnagle's study shoppers consistently, and dramatically, overestimated what rights they acquired to digital content they purchased online. The vast majority believed that they would be able to keep their ebook indefinantely and transfer it to any device they own. More than a third believed they would be able to lend it or gift it to a friend.</p>";
+var EXAMPLE_RIGHT = _.template("<p>Like the vast majority of shoppers in the original survey, you believe that buying an ebook guarantees you at least some rights. For example, you said that you would be able to <%= desc %>. In reality, the terms of service agreements (TOS) that govern digital media almost never convey any of the rights listed above.</p><p>In Perzanowski and Hoofnagle's study shoppers consistently, and dramatically, overestimated what rights they acquired to digital content they purchased online. The vast majority of participants believed that they would be able to keep their ebook indefinantely and transfer it to any device they own. More than a third believed they would be able to lend it or gift it to a friend.</p>");
+var ALL_RIGHTS = "<p>You selected every right, which is to say that you believe you have similar rights to an ebook that you would have to a physical copy. In reality, the terms of service agreements (TOS) that govern digital media almost never convey any of the rights listed above.</p><p>In Perzanowski and Hoofnagle's study shoppers consistently, and dramatically, overestimated what rights they acquired to digital content they purchased online. The vast majority of participants believed that they would be able to keep their ebook indefinantely and transfer it to any device they own. More than a third believed they would be able to lend it or gift it to a friend.</p>";
 
 var NO_OWN = '<p>You did not check the box indicating you would "own" the ebook, which makes you either unusually knowledgable or unusually cynical about this issue. In the study, 86% of respondents believed they owned an ebook they purchased online. This is an intuitive conclusion. When you pay for something, you expect to own it. However, it is also false. Most TOS explicitly state that content is "licensed, not sold" and thus remains the property of the seller.'
-var YES_OWN = '<p>Like most survey respondents, you checked the box indicating that you would "own" the ebook. In the study, 86% of respondents agreed with you. This is an intuitive conclusion. When you buy something, you expect to own it. However, it is also false. Most TOS explicitly state that content is "licensed, not sold" and thus remains the property of the seller..'
+var YES_OWN = '<p>Like most survey respondents, you checked the box indicating that you would "own" the ebook. In the study, 86% of respondents agreed with you. This is an intuitive conclusion. When you buy something, you expect to own it. However, it is also false. Most TOS explicitly state that content is "licensed, not sold" and thus remains the property of the seller.'
 
 var rights = [{
 		'slug': 'resell',
@@ -122,36 +117,14 @@ function onScoreButtonClick() {
 		}
 	}
 
+	$('table.rights').hide();
+	$('table.results').show();
 	$('.your_results').show();
+	fm.resize();
 }
-
-function setup () {
-// setup the thing, insert DOM elements, bind data, etc
-
-	//now that everything is setup, update
-	update()
-}
-
-function update () {
-// update the thing, position, size, and style DOM elemements
-
-	// adjust iframe for dynamic content
-	fm.resize()
-}
-
-function resize() {
-// on resize, update save dimensional values and update.
-
-	update()
-	fm.resize()
-}
-
-var throttleRender = throttle(resize, 250);
 
 $(document).ready(function () {
 	// adjust iframe for loaded content
 	fm.resize()
-	$(window).resize(throttleRender);
 	init();
-	setup();
 });

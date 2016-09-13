@@ -1,15 +1,3 @@
-.split
-    .left, .right
-        width: 48%
-        float: left
-
-    .spacer
-        width: 4%
-        float: left
-
-.break
-    clear: both
-
 table.rights
     margin-top: 15px
     font: 20px/30px $qz-serif
@@ -34,18 +22,8 @@ table.rights
     td.label
             padding-left: 10px
 
-qz-button-group()
-
-button.score
-    margin-top: 20px
-
-p.response
-    font-weight: bold;
-
-.your_results
-    display: none
-
 table.results
+    display: none
     width: 100%
     margin-top: 15px
     font: 20px/30px $qz-serif
@@ -83,15 +61,18 @@ table.results
             margin-left: 3px
             float: left
 
+qz-button-group()
+
+button.score
+    margin-top: 20px
+
+p.response
+    font-weight: bold;
+
+.your_results
+    display: none
+
 @media only screen and (max-width 600px)
-    .split
-        .left, .right
-            width: 100%
-            float: none
-
-        .spacer
-            display: none
-
     table.rights, table.results
         font: 16px/24px $qz-serif;
 
