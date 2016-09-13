@@ -11,7 +11,7 @@ table.rights
         padding-left: 10px
 
     td.check
-        padding: 5px 15px
+        padding: 5px 15px 0 15px
 
         input
             transform: scale(2)
@@ -23,8 +23,7 @@ table.rights
             padding-left: 10px
 
 table.results
-    display: none
-    width: 100%
+    display: none;
     margin-top: 15px
     font: 20px/30px $qz-serif
     -webkit-font-smoothing: antialiased
@@ -37,7 +36,7 @@ table.results
         padding-left: 10px
 
     td.check
-        padding: 5px 15px
+        padding: 5px 15px 0 15px
 
         input
             transform: scale(2)
@@ -46,16 +45,20 @@ table.results
                 outline: 0
 
     td.label
-            padding-left: 10px
+        padding-left: 10px
+        white-space: nowrap
 
     td.response
         width: 100%
         padding-left: 10px
 
-        div.fill
-            background-color: $qz-purp-1;
-            height: 30px
-            float: left
+        div.wrap
+            width: 75%
+
+            div.fill
+                background-color: $qz-purp-1;
+                height: 30px
+                float: left
 
         div.pct
             margin-left: 3px

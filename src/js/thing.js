@@ -72,13 +72,12 @@ function onCheckClick() {
 
 function onScoreButtonClick() {
 	if ($('.check input:checked').length < rights.length) {
-		$('p.response').text('Please check Yes or No for each right.');
+		alert('Please check Yes or No for each prompt.');
 		return;
 	}
 
 	$('button.score').hide();
-	$('p.response').text('Thanks! Keep reading to learn how you did.');
-	$('.rights input').attr('disabled', 'disabled');
+	// $('.rights input').attr('disabled', 'disabled');
 
 	var count = $('.yes input:checked').length;
 	var ownChecked = $('.rights #own .yes input').is(':checked');

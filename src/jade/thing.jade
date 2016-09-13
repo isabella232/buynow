@@ -18,7 +18,7 @@ table.results
 	tr
 		th.yes Yes
 		th.no No
-		th.label Right
+		th.label
 		th.response Shoppers who said Yes
 			
 	for right in rights
@@ -27,14 +27,13 @@ table.results
 				input(type="checkbox", disabled="disabled")
 			td(class="check no")
 				input(type="checkbox", disabled="disabled")
-			td(class="label")= right.right
+			td(class="label")= right.text
 			td(class="response")
-				div.fill
+				div.wrap
+					div.fill
 				div.pct
 							
 button.active.score(type="button") Check my answers
-
-p.response &nbsp;
 
 div &nbsp;
 
