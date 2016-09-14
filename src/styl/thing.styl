@@ -1,3 +1,5 @@
+@import 'checks'
+
 table.rights
     margin-top: 15px
     font: 20px/30px $qz-serif
@@ -5,58 +7,36 @@ table.rights
 
     th
         border-bottom: 1px solid $qz-gray-1
-
-    th.label
-        text-align: left
-        padding-left: 10px
+        vertical-align: bottom
 
     td.check
-        padding: 5px 15px 0 15px
+        padding: 5px 10px 5px 10px
 
-        input
-            transform: scale(2)
+        &.yes
+            [type="checkbox"].highlight:disabled:not(:checked) + label:before,
+            [type="checkbox"].highlight:disabled:checked + label:before
+                background-color: $qz-gray-1
 
-            &:focus
-                outline: 0
+        &.no
+            [type="checkbox"].highlight:disabled:not(:checked) + label:before,
+            [type="checkbox"].highlight:disabled:checked + label:before
+                background-color: $qz-purp-1
 
-    td.label
-            padding-left: 10px
-
-table.results
-    display: none;
-    margin-top: 15px
-    font: 20px/30px $qz-serif
-    -webkit-font-smoothing: antialiased
-
-    th
-        border-bottom: 1px solid $qz-gray-1
-
-    th.label, th.response
-        text-align: left
-        padding-left: 10px
-
-    td.check
-        padding: 5px 15px 0 15px
-
-        input
-            transform: scale(2)
-
-            &:focus
-                outline: 0
-
-    td.label
+    td.label, th.label
         padding-left: 10px
         white-space: nowrap
 
-    td.response
+    td.response, th.response
+        display: none
         width: 100%
+        text-align: left
         padding-left: 10px
 
         div.wrap
             width: 75%
 
             div.fill
-                background-color: $qz-purp-1;
+                background-color: $qz-gray-1;
                 height: 30px
                 float: left
 
@@ -69,25 +49,18 @@ qz-button-group()
 button.score
     margin-top: 20px
 
-p.response
-    font-weight: bold;
-
-.your_results
+.your-results
     display: none
 
 @media only screen and (max-width 600px)
     table.rights, table.results
-        font: 16px/24px $qz-serif;
-
-        td.check
-            padding: 5px 10px
-
-    table.results
-        td.check
-            width: 5%
+        font: 14px/22px $qz-serif;
 
         td.response
             width: 60%
 
-            div.fill
+            div.wrap
                 display: none
+
+            div.pct
+                text-align: right

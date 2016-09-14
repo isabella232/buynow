@@ -5,39 +5,27 @@ table.rights
 		th.yes Yes
 		th.no No
 		th.label
-			
-	for right in rights
-		tr(id=right.slug)
-			td(class="check yes ")
-				input(type="checkbox")
-			td(class="check no ")
-				input(type="checkbox")
-			td(class="label")= right.text
-		
-table.results
-	tr
-		th.yes Yes
-		th.no No
-		th.label
 		th.response Shoppers who said Yes
 			
 	for right in rights
 		tr(id=right.slug)
 			td(class="check yes")
-				input(type="checkbox", disabled="disabled")
+				input(id=right.slug + "-yes", type="checkbox")
+				label(for=right.slug + "-yes")
 			td(class="check no")
-				input(type="checkbox", disabled="disabled")
+				input(id=right.slug + "-no", type="checkbox")
+				label(for=right.slug + "-no")
 			td(class="label")= right.text
 			td(class="response")
 				div.wrap
 					div.fill
 				div.pct
 							
-button.active.score(type="button") Check my answers
+button.active.score(type="button") Compare my answers
 
 div &nbsp;
 
-div.your_results
+div.your-results
 	h2= results_hed
 		
 	div.explainer

@@ -3,41 +3,41 @@ var throttle = require('./throttle');
 var features = require('./detectFeatures')();
 var _ = require('lodash');
 
-var NO_RIGHTS = "<p>You selected no rights, which is correct. The terms of service agreements (TOS) that govern digital media almost never convey any of the rights listed above.</p><p>In Perzanowski and Hoofnagle's study shoppers consistently, and dramatically, overestimated what rights they acquired to digital content they purchased online. The vast majority believed that they would be able to keep their ebook indefinantely and transfer it to any device they own. More than a third believed they would be able to lend it or gift it to a friend.</p>";
-var EXAMPLE_RIGHT = _.template("<p>Like the vast majority of shoppers in the original survey, you believe that buying an ebook guarantees you at least some rights. For example, you said that you would be able to <%= desc %>. In reality, the terms of service agreements (TOS) that govern digital media almost never convey any of the rights listed above.</p><p>In Perzanowski and Hoofnagle's study shoppers consistently, and dramatically, overestimated what rights they acquired to digital content they purchased online. The vast majority of participants believed that they would be able to keep their ebook indefinantely and transfer it to any device they own. More than a third believed they would be able to lend it or gift it to a friend.</p>");
-var ALL_RIGHTS = "<p>You selected every right, which is to say that you believe you have similar rights to an ebook that you would have to a physical copy. In reality, the terms of service agreements (TOS) that govern digital media almost never convey any of the rights listed above.</p><p>In Perzanowski and Hoofnagle's study shoppers consistently, and dramatically, overestimated what rights they acquired to digital content they purchased online. The vast majority of participants believed that they would be able to keep their ebook indefinantely and transfer it to any device they own. More than a third believed they would be able to lend it or gift it to a friend.</p>";
+var NO_RIGHTS = "<p>You are correct.  The terms of service agreements (TOS) that govern digital media almost never convey any of the rights listed above.</p><p>In Perzanowski and Hoofnagle's study shoppers consistently, and dramatically, overestimated what rights they acquired to digital content they purchased online. The vast majority believed that they would be able to keep their ebook indefinantely and transfer it to any device they own. More than a third believed they would be able to lend it or gift it to a friend.</p>";
+var EXAMPLE_RIGHT = _.template("<p>The correct answer, in every case, is \"No\". However, like the vast majority of shoppers in the original survey, you answered that buying an ebook guarantees you at least some rights. For example, you said that you would be able to <%= desc %>. In reality, the terms of service agreements (TOS) that govern digital media almost never convey any of the rights listed above.</p><p>In Perzanowski and Hoofnagle's study shoppers consistently, and dramatically, overestimated what rights they acquired to digital content they purchased online. The vast majority of participants believed that they would be able to keep their ebook indefinantely and transfer it to any device they own. More than a third believed they would be able to lend it or gift it to a friend.</p>");
+var ALL_RIGHTS = "<p>The correct answer, in every case, is \"No\". You selected Yes for every statement, which is to say that you believe you have similar rights to an ebook that you would have to a physical copy. In reality, the terms of service agreements (TOS) that govern digital media almost never convey any of the rights listed above.</p><p>In Perzanowski and Hoofnagle's study shoppers consistently, and dramatically, overestimated what rights they acquired to digital content they purchased online. The vast majority of participants believed that they would be able to keep their ebook indefinantely and transfer it to any device they own. More than a third believed they would be able to lend it or gift it to a friend.</p>";
 
 var NO_OWN = '<p>You did not check the box indicating you would "own" the ebook, which makes you either unusually knowledgable or unusually cynical about this issue. In the study, 86% of respondents believed they owned an ebook they purchased online. This is an intuitive conclusion. When you pay for something, you expect to own it. However, it is also false. Most TOS explicitly state that content is "licensed, not sold" and thus remains the property of the seller.'
 var YES_OWN = '<p>Like most survey respondents, you checked the box indicating that you would "own" the ebook. In the study, 86% of respondents agreed with you. This is an intuitive conclusion. When you buy something, you expect to own it. However, it is also false. Most TOS explicitly state that content is "licensed, not sold" and thus remains the property of the seller.'
 
 var rights = [{
+		'slug': 'copy',
+		'desc': 'make a copy of the book for yourself',
+		'study_pct': 9
+	}, {
 		'slug': 'resell',
 		'desc': 'resell the book',
 		'study_pct': 12
-	}, {
-		'slug': 'gift',
-		'desc': 'give the book away as a gift',
-		'study_pct': 38
-	}, {
-		'slug': 'keep',
-		'desc': 'keep the book indefinately',
-		'study_pct': 87
-	}, {
-		'slug': 'device',
-		'desc': 'transfer the book to any device you own',
-		'study_pct': 81
-	}, {
-		'slug': 'lend',
-		'desc': 'lend the book to a friend',
-		'study_pct': 48
 	}, {
 		'slug': 'will',
 		'desc': 'leave the book to your children in your will',
 		'study_pct': 26
 	}, {
-		'slug': 'copy',
-		'desc': 'make a copy of the book for yourself',
-		'study_pct': 9
+		'slug': 'gift',
+		'desc': 'give the book away as a gift',
+		'study_pct': 38
+	}, {
+		'slug': 'lend',
+		'desc': 'lend the book to a friend',
+		'study_pct': 48
+	}, {
+		'slug': 'device',
+		'desc': 'transfer the book to any device you own',
+		'study_pct': 81
+	}, {
+		'slug': 'keep',
+		'desc': 'keep the book indefinately',
+		'study_pct': 87
 	}, {
 		'slug': 'own',
 		'study_pct': 86
@@ -77,20 +77,15 @@ function onScoreButtonClick() {
 	}
 
 	$('button.score').hide();
-	// $('.rights input').attr('disabled', 'disabled');
+	$('.rights input').attr('disabled', 'disabled');
+	$('.rights td.check input:checked').addClass('highlight');
 
 	var count = $('.yes input:checked').length;
 	var ownChecked = $('.rights #own .yes input').is(':checked');
 
 	_.each(rights, function(right) {
-		$('.results #' + right.slug + ' .response .fill').width(right.study_pct + '%');
-		$('.results #' + right.slug + ' .response .pct').text(right.study_pct + '%');
-
-		if ($('.rights #' + right.slug + ' .yes input').is(':checked')) {
-			$('.results #' + right.slug + ' .yes input').attr('checked', true);
-		} else {
-			$('.results #' + right.slug + ' .no input').attr('checked', true);
-		}
+		$('.rights #' + right.slug + ' .response .fill').width(right.study_pct + '%');
+		$('.rights #' + right.slug + ' .response .pct').text(right.study_pct + '%');
 	});
 
 	if (count == 0) {
@@ -116,9 +111,8 @@ function onScoreButtonClick() {
 		}
 	}
 
-	$('table.rights').hide();
-	$('table.results').show();
-	$('.your_results').show();
+	$('table.rights .response').show();
+	$('.your-results').show();
 	fm.resize();
 }
 
