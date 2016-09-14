@@ -28,4 +28,22 @@ div &nbsp;
 div.your-results
 	h2= results_hed
 		
-	div.explainer
+	div(id="no-rights", class="robo")
+		for graf in no_rights
+			p!= graf.value
+		
+	div(id="all-rights", class="robo")
+		for graf in all_rights
+			p!= graf.value
+		
+	div(id="example-right", class="robo")
+		for graf in example_right
+			p!= graf.value
+		
+	div(id="no-own", class="robo")
+		for graf in no_own
+			p!= graf.value
+		
+	div(id="yes-own", class="robo")
+		for graf in yes_own
+			p!= graf.value

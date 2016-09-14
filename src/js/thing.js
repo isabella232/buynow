@@ -3,13 +3,6 @@ var throttle = require('./throttle');
 var features = require('./detectFeatures')();
 var _ = require('lodash');
 
-var NO_RIGHTS = "<p>You are correct.  The terms of service agreements (TOS) that govern digital media almost never convey any of the rights listed above.</p><p>In Perzanowski and Hoofnagle's study shoppers consistently, and dramatically, overestimated what rights they acquired to digital content they purchased online. The vast majority believed that they would be able to keep their ebook indefinantely and transfer it to any device they own. More than a third believed they would be able to lend it or gift it to a friend.</p>";
-var EXAMPLE_RIGHT = _.template("<p>The correct answer, in every case, is \"No\". However, like the vast majority of shoppers in the original survey, you answered that buying an ebook guarantees you at least some rights. For example, you said that you would be able to <%= desc %>. In reality, the terms of service agreements (TOS) that govern digital media almost never convey any of the rights listed above.</p><p>In Perzanowski and Hoofnagle's study shoppers consistently, and dramatically, overestimated what rights they acquired to digital content they purchased online. The vast majority of participants believed that they would be able to keep their ebook indefinantely and transfer it to any device they own. More than a third believed they would be able to lend it or gift it to a friend.</p>");
-var ALL_RIGHTS = "<p>The correct answer, in every case, is \"No\". You selected Yes for every statement, which is to say that you believe you have similar rights to an ebook that you would have to a physical copy. In reality, the terms of service agreements (TOS) that govern digital media almost never convey any of the rights listed above.</p><p>In Perzanowski and Hoofnagle's study shoppers consistently, and dramatically, overestimated what rights they acquired to digital content they purchased online. The vast majority of participants believed that they would be able to keep their ebook indefinantely and transfer it to any device they own. More than a third believed they would be able to lend it or gift it to a friend.</p>";
-
-var NO_OWN = '<p>You did not check the box indicating you would "own" the ebook, which makes you either unusually knowledgable or unusually cynical about this issue. In the study, 86% of respondents believed they owned an ebook they purchased online. This is an intuitive conclusion. When you pay for something, you expect to own it. However, it is also false. Most TOS explicitly state that content is "licensed, not sold" and thus remains the property of the seller.'
-var YES_OWN = '<p>Like most survey respondents, you checked the box indicating that you would "own" the ebook. In the study, 86% of respondents agreed with you. This is an intuitive conclusion. When you buy something, you expect to own it. However, it is also false. Most TOS explicitly state that content is "licensed, not sold" and thus remains the property of the seller.'
-
 var rights = [{
 		'slug': 'copy',
 		'desc': 'make a copy of the book for yourself',
@@ -44,14 +37,20 @@ var rights = [{
 	},
 ];
 
-var $explainer = null;
+var $no_rights = null;
+var $yes_rights = null;
+var $example_right = null;
+var $no_own = null;
+var $yes_own = null;
 var $rights = null;
 
 function init () {
-	$explainer = $('div.explainer');
+	$no_rights = $('#no-rights');
+	$yes_rights = $('#yes-rights');
+	$example_right = $('#example-right');
+	$no_own = $('#no-own');
+	$yes_own = $('#yes-own');
 	$rights = $('.rights');
-
-	$explainer.html(NO_RIGHTS + NO_OWN);
 
 	$('.rights input[type="checkbox"]').on('click', onCheckClick);
 	$('button.score').on('click', onScoreButtonClick);
@@ -89,25 +88,35 @@ function onScoreButtonClick() {
 	});
 
 	if (count == 0) {
-		$explainer.html(NO_RIGHTS + NO_OWN);
+		$no_rights.show();
+		$no_own.show();
 	} else if (count == 1) {
 		if (ownChecked) {
-			$explainer.html(NO_RIGHTS + YES_OWN);
+			$no_rights.show();
+			$yes_own.show();
 		} else {
 			var el = $('.rights .yes input:checked').first();
 			var slug = el.parent().parent().attr('id');
 			var example_right = _.find(rights, { 'slug': slug })
-			$explainer.html(EXAMPLE_RIGHT(example_right) + NO_OWN);
+
+			$example_right.html($example_right.html().replace('%%DESC%%', example_right.desc));
+
+			$example_right.show();
+			$no_own.show();
 		}
 	} else {
 		var el = $('.rights .yes input:checked').first();
 		var slug = el.parent().parent().attr('id');
 		var example_right = _.find(rights, { 'slug': slug })
 
+		$example_right.html($example_right.html().replace('%%DESC%%', example_right.desc));
+
 		if (ownChecked) {
-			$explainer.html(EXAMPLE_RIGHT(example_right) + YES_OWN);
+			$example_right.show();
+			$yes_own.show();
 		} else {
-			$explainer.html(EXAMPLE_RIGHT(example_right) + NO_OWN);
+			$example_right.show();
+			$no_own.show();
 		}
 	}
 
