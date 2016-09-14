@@ -5,7 +5,7 @@ table.rights
 		th.yes Yes
 		th.no No
 		th.label
-		th.response Shoppers who said Yes
+		th.response= pct_header
 			
 	for right in rights
 		tr(id=right.slug)
@@ -21,7 +21,7 @@ table.rights
 					div.fill
 				div.pct
 							
-button.active.score(type="button") Compare my answers
+button.active.score(type="button")= button_label
 
 div &nbsp;
 
