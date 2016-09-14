@@ -39,6 +39,9 @@ div.your-results
 	div(id="example-right", class="robo")
 		for graf in example_right
 			p!= graf.value
+			
+	for graf in transition
+		p!= graf.value
 		
 	div(id="no-own", class="robo")
 		for graf in no_own
